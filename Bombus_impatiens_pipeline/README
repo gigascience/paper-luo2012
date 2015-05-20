@@ -1,0 +1,6 @@
+1) Download reads from "http://gage.cbcb.umd.edu/data/Bombus_impatiens/" to work directory ($rootDir).
+2) Decompress read files. Make sure the read files are under directory of "$rootDir/Data/original/".
+3) Edit "removeAdaptor.sh" to set the variable for "nucmer".
+4) In work directory ($rootDir), type "sh removeAdaptor.sh >removeAdaptor.log" and enter to remove adaptor sequence.
+5) In work directory ($rootDir), type "sh SOAPdenovo1_pipeline.sh >SOAPdenovo1.log" and enter to assemble reads using SOAPdenovo1.
+6) In work directory ($rootDir), type "sh SOAPdenovo2_pipeline.sh >SOAPdenovo2.log" and enter to assemble reads using SOAPdenovo2.

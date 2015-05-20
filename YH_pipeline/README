@@ -1,0 +1,31 @@
+Run "run_1.0.sh" "run_2.0.sh" "run_sparse.sh" and "run_sparse_muti_test.sh" in "YH_pipleline" directory to get assemblies using SOAPdenovo1 SOAPdenovo2 SOAPdenovo2_sparse and SOAPdenovo2_sparse_multi. However, to have the pipeline run correctly, we suggest reading the whole README before running it.
+
+There are 9 steps for YH assembly. These steps are:
+0) download file
+1) filter low quality data
+2) build kmer frequency table
+3) correct errors
+4) run "pregraph" or "all"
+5) run "contig"
+6) run "map"
+7) run "scaff"
+8) fill gaps
+You can decide which steps are going to be run by setting "start" and "stop" options in "run.sh".
+
+If you have already downloaded data before, there is no need to download it again. Instead, you need to:
+1) Create directories "SOAPdenovo1/data" under "YH_pipleline" directory.
+2) Link or copy your downloaded data to "SOAPdenovo1/data".
+Then you can start the pipeline from step 1 by setting "start" to 1 in "run_2.0.sh".
+3) Create a directory "SOAPdenovo2/data" under "YH_pipleline" directory.
+4) Link those files in "YH_pipleline/SOAPdenovo1/data" directory to "YH_pipleline/SOAPdenovo2/data" directory.
+Then you can start the pipeline from step 1 by setting "start" to 1 in "run_2.0.sh".
+5) Create a directory "assembly_sparse/data" under "YH_pipleline" directory.
+6) Link those files in "YH_pipleline/SOAPdenovo1/data" directory to "YH_pipleline/assembly_sparse/data" directory.
+Then you can start the pipeline from step 1 by setting "start" to 1 in "run_sparse.sh".
+7) Create a directory "SOAPdenovo2/data" under "Assemblathon1_pipleline" directory.
+8) Link those files in "YH_pipleline/SOAPdenovo1/data" directory to "YH_pipleline/assembly_sparse_muti_test/data" directory.
+Then you can start the pipeline from step 1 by setting "start" to 1 in "run_sparse_muti_test.sh".
+
+If the pipeline terminates unexpectly, you can restart it from the failed step by changing the "start" to the failed step in "run.sh".
+
+The final scaffold file of SOAPdenovo1 pipeline is under "SOAPdenovo1/gapcloser" directory, named as "asm_31.scafSeq.GC". And the final scaffold file of SOAPdenvo2 pipeline is under "SOAPdenovo2/gapcloser" directory, named as "asm_45.scafSeq.GC". And final scaffold file of SOAPdenvo2_sparse pipeline is under "assembly_sparse/gapcloser" directory, named as "asm_35.scafSeq.GC".And final scaffold file of SOAPdenvo2 pipeline is under "assembly_sparse_muti_test/gapcloser" directory, named as "asm_35.scafSeq.GC".

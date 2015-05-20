@@ -1,0 +1,90 @@
+#The value in bracket is default.
+
+#global
+#output dir[cwd]
+outdir:SOAPdenovo2
+#estimate parameter, -P and -O are set in script
+estpara:-A 1800000 -G 5
+#error output file[err]
+err:err
+
+#step 0
+#ftp download destination
+dest:http://korflab.ucdavis.edu/Datasets/Assemblathon/Assemblathon1/ 
+#md5 value of file[md5.txt]
+md5:md5sum.txt
+#is bz2 format?
+bz2:1
+
+#step 1
+#filter parameter, two lists are set in script
+filterpara:-q 64 -f 0 -y -z -p -t 16 -b
+#lane list
+lanelist:lane.lst
+#lib list
+liblist:lib.lst
+
+#step 2
+#kmer freq
+kmerfreq:KmerFreq_AR_v2.0
+#kmer freq parameter, the list is set in script
+kmerfreqpara:-k 17 -t 16 -p speciesA read.lst
+
+#step 3
+#correction
+correction:Corrector_AR_v2.0
+#correct parameter, the list is set in script
+#correctpara:-k 17 -l 3 -t 16 -a 1 -e 0 -w 0 -Q 33 -q 40 -o 1 speciesA.freq.cz speciesA.freq.cz.len read.lst
+correctpara:-k 17 -l 3 -e 1 -w 0 -q 30 -t 16 -o 1 speciesA.freq.cz speciesA.freq.cz.len read.lst
+#only set in 1.0
+mergepair:
+#only set in 1.0
+mergelist:
+
+#step 4-7
+#SOAPdenovo
+SOAPdenovo:SOAPdenovo-63mer_v2.0
+#sparse pregraph(use sparse if set)
+sparse:
+#parameter for all, ignore pregraph contig map and scaff while set
+all:
+#parameter for pregraph(config file is set by parameter -s)
+pregraph:-K 31 -s SOAPdenovo2.cfg -d 1 -o speciesA -p 16
+#parameter for contig
+contig:-g speciesA -M 1
+#parameter for map
+#the original map
+map:-s SOAPdenovo2.cfg -g speciesA -p 16 -f
+#map for different read length
+#map1:-s short.cfg -g asm_45 -k 31 -p 24
+#parameter for scaff
+scaff:-g speciesA
+
+#step 8
+#kgf
+kgf:SRkgf/SRKGF.pl
+#kgf parameter --dir is set in parse.pl
+kgfpara:--kmer 41 --prefix speciesA --step 123 --thread 16 --cpu 2 --outdir ./ --cvg 48 --shortcontig 100 --falsecontig 300 --noqsub
+
+#step 8
+#gapcloser[GapCloser]
+gapcloser:GapCloser_v1.12
+#gapcloser parameter, -a -b and -o are set in script
+gappara:-p 31 -t 16 -l 100
+#gapcloser config file(maybe not the same as assembly)[the same as assembly]
+gapcfg:GapCloser2.cfg
+
+
+#step 9
+#filter contamination
+blast:blastall
+#blast parameter
+blastpara:-p blastn -d genome_Bacteria.fa -i speciesA.scafSeq.GC -e 1e-4 -m 8 -o speciesA.scafSeq.GC.blastall.out
+
+#step 10
+#consensus alignment tools(soap3dp or bwa)
+align:bwa
+#Is Illumina 1.3+ Encoding when using alignment tools(0 or 1)
+is13:1
+#consensus config file(maybe not the same as assembly)[the same as assembly]
+concfg:consensus.cfg
