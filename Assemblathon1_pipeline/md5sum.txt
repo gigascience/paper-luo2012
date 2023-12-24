@@ -1,8 +1,0 @@
-ad8079a46ca8f1cb83271668b52d1ace	speciesA_200i_40x.1.fastq.bz2
-0211b8b8edd8be6a6ddc92dfc9d8c956	speciesA_200i_40x.2.fastq.bz2
-d15b17a783038d225a25eb142b3f6c6f	speciesA_300i_40x.1.fastq.bz2
-7c107a0e6757efad7120d9265e9dd168	speciesA_300i_40x.2.fastq.bz2
-895fbbaafb4b7a68be031771ce518df9	speciesA_3000i_20x_r3.1.fastq.bz2
-578e425fff22fb1b1e639ac4b4e0a01b	speciesA_3000i_20x_r3.2.fastq.bz2
-6fb5d1b6886af29ca32a455646009944	speciesA_10000i_20x_r3.1.fastq.bz2
-68299a24b3a8880fc6577f3caa314c8a	speciesA_10000i_20x_r3.2.fastq.bz2
